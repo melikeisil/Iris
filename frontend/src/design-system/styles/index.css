@@ -1,0 +1,103 @@
+@import './tokens.css';
+@import './fonts.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-on-background font-body-sm text-body-sm antialiased;
+  }
+
+  ::selection {
+    @apply bg-primary/30;
+  }
+
+  /* Visible focus everywhere. Never `outline: none` without a replacement. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-indigo ring-offset-2 ring-offset-background;
+  }
+
+  /*
+   * Scrollbar treatment transcribed from the Stitch shell <style> block:
+   * 4px wide, #07090C track, #1C2432 thumb at radius 10px, #2A3443 on hover.
+   */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgb(var(--iris-background));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--iris-border-field));
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--iris-border-structural));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /*
+   * Named effects lifted from the Stitch <style> blocks. Kept as classes rather than
+   * Tailwind utilities because each is a single literal declaration used verbatim.
+   */
+
+  /* Active sidebar item: `box-shadow: inset 2px 0 0 0 #6C63FF`. */
+  .active-glow {
+    box-shadow: inset 2px 0 0 0 rgb(var(--iris-brand-indigo));
+  }
+
+  /* AI surfaces. Violet inner glow, never applied to a human action. */
+  .ai-glow {
+    box-shadow: inset 0 0 12px rgb(var(--iris-ai-violet) / 0.1);
+  }
+
+  .intelligence-glow {
+    box-shadow: inset 0 0 12px rgb(var(--iris-ai-violet) / 0.1);
+    border-left: 3px solid rgb(var(--iris-ai-violet));
+  }
+
+  .card-glow:hover {
+    box-shadow: 0 4px 20px rgb(var(--iris-brand-indigo) / 0.1);
+  }
+
+  .glass-panel {
+    background: rgb(var(--iris-card) / 0.7);
+    backdrop-filter: blur(12px);
+  }
+
+  /* IBM Plex Mono, uppercase, tracked out: the "precision data" signal. */
+  .technical-label {
+    @apply font-technical-label text-technical-label uppercase text-on-surface-variant;
+  }
+
+  .skeleton {
+    @apply rounded bg-border-card;
+    background-image: linear-gradient(
+      90deg,
+      rgb(var(--iris-border-card)) 0px,
+      rgb(var(--iris-border-field)) 240px,
+      rgb(var(--iris-border-card)) 480px
+    );
+    background-size: 960px 100%;
+    @apply animate-shimmer;
+  }
+}

@@ -1,0 +1,8 @@
+node_modules
+dist
+dist-ssr
+coverage
+.env
+.env.local
+*.local
+.vite

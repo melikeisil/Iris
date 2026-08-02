@@ -1,0 +1,86 @@
+/*
+ * Iris design tokens - the single source of truth for colour.
+ *
+ * Values are transcribed verbatim from the `tailwind.config` <script> block inside the
+ * Google Stitch `code.html` sources under stitch_iris_visual_design_foundation/*, NOT
+ * from iris_enterprise/DESIGN.md (whose frontmatter disagrees with the operative
+ * config on `background`, `surface-container-lowest` and the neutral ramp).
+ *
+ * Channels are space separated RGB so Tailwind alpha modifiers keep working
+ * (`bg-surface-container-low/30`, `text-primary/60`). A light theme would redeclare
+ * the same names under [data-theme='light']; no component would change.
+ */
+:root,
+[data-theme='dark'] {
+  /* ---------------------------------------------------------------- canvas */
+  --iris-background: 7 9 12; /* #07090C  page canvas */
+  --iris-surface: 17 20 23; /* #111417 */
+  --iris-surface-dim: 17 20 23; /* #111417 */
+  --iris-surface-bright: 55 57 61; /* #37393D */
+
+  /* Tonal container ramp. Depth comes from tone, never from shadow. */
+  --iris-surface-container-lowest: 12 15 20; /* #0C0F14  cards, sidebar */
+  --iris-surface-container-low: 26 28 31; /* #1A1C1F */
+  --iris-surface-container: 30 32 35; /* #1E2023 */
+  --iris-surface-container-high: 40 42 46; /* #282A2E */
+  --iris-surface-container-highest: 51 53 56; /* #333538 */
+  --iris-surface-variant: 51 53 56; /* #333538 */
+
+  /* Two extra surfaces the Stitch markup writes as raw hex on form controls. */
+  --iris-field: 17 22 32; /* #111620  input / search background */
+  --iris-card: 12 15 20; /* #0C0F14  alias of surface-container-lowest */
+
+  /* --------------------------------------------------------------- borders */
+  --iris-border-card: 23 29 41; /* #171D29  card hairline */
+  --iris-border-field: 28 36 50; /* #1C2432  input hairline */
+  --iris-border-structural: 42 52 67; /* #2A3443  sidebar / topbar / table rules */
+  --iris-outline-variant: 70 69 85; /* #464555 */
+  --iris-outline: 145 143 161; /* #918FA1 */
+
+  /* ------------------------------------------------------------------ text */
+  --iris-on-background: 226 226 231; /* #E2E2E7 */
+  --iris-on-surface: 226 226 231; /* #E2E2E7 */
+  --iris-on-surface-variant: 199 196 216; /* #C7C4D8 */
+  /* Antique white used by iris_my_work for table and metric headings. */
+  --iris-on-surface-bright: 243 241 234; /* #F3F1EA */
+
+  /* -------------------------------------------------- Material tonal roles */
+  --iris-primary: 196 192 255; /* #C4C0FF */
+  --iris-on-primary: 32 0 164; /* #2000A4 */
+  --iris-primary-container: 135 129 255; /* #8781FF */
+  --iris-on-primary-container: 27 0 145; /* #1B0091 */
+  --iris-inverse-primary: 79 68 226; /* #4F44E2 */
+  --iris-secondary: 205 189 255; /* #CDBDFF */
+  --iris-on-secondary: 55 0 149; /* #370095 */
+  --iris-secondary-container: 80 44 176; /* #502CB0  active nav pill */
+  --iris-on-secondary-container: 192 172 255; /* #C0ACFF */
+  --iris-tertiary: 237 191 118; /* #EDBF76 */
+  --iris-on-tertiary: 67 44 0; /* #432C00 */
+  --iris-tertiary-container: 179 138 70; /* #B38A46 */
+  --iris-on-tertiary-container: 58 38 0; /* #3A2600 */
+  --iris-error: 255 180 171; /* #FFB4AB */
+  --iris-on-error: 105 0 5; /* #690005 */
+  --iris-error-container: 147 0 10; /* #93000A */
+  --iris-on-error-container: 255 218 214; /* #FFDAD6 */
+  --iris-inverse-surface: 226 226 231; /* #E2E2E7 */
+  --iris-inverse-on-surface: 46 48 52; /* #2E3034 */
+
+  /* --------------------------------------------------------- brand accents */
+  /* Indigo: human-driven orchestration. Every primary action button. */
+  --iris-brand-indigo: 108 99 255; /* #6C63FF */
+  --iris-brand-indigo-hover: 90 82 229; /* #5A52E5 */
+  /* Violet: reserved for AI-generated content. Never a human action. */
+  --iris-ai-violet: 155 124 255; /* #9B7CFF */
+  /* Warm gold: rare editorial / executive emphasis. Never a button. */
+  --iris-editorial: 214 170 99; /* #D6AA63 */
+  --iris-success-teal: 77 182 172; /* #4DB6AC */
+  --iris-warning-amber: 237 191 118; /* #EDBF76 */
+  --iris-info: 124 169 255; /* #7CA9FF */
+
+  /* ------------------------------------------------------------ typography */
+  --iris-font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+  --iris-font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+    monospace;
+  --iris-font-editorial: 'Cormorant Garamond', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+}

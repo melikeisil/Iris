@@ -1,0 +1,27 @@
+/*
+ * Typography sources.
+ *
+ * The Stitch designs specify Inter (UI), IBM Plex Mono (technical metadata) and
+ * Cormorant Garamond (editorial headings). This project does NOT ship those webfont
+ * binaries: they are not ours to redistribute, and no Google Fonts <link> is used
+ * because an offline or air-gapped demo must render identically to a connected one.
+ *
+ * There are therefore no @font-face rules here. This file previously declared eight of
+ * them pointing at /fonts/*.woff2 files that were never added, which made the browser
+ * issue eight failed requests on first paint. Declaring a face whose src cannot resolve
+ * buys nothing over simply naming the family first in the stack, so the stacks defined
+ * in tokens.css do the whole job:
+ *
+ *   --iris-font-sans      'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, ...
+ *   --iris-font-mono      'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, ...
+ *   --iris-font-editorial 'Cormorant Garamond', 'Iowan Old Style', Georgia, ...
+ *
+ * If a family is installed on the machine, or is later added as a licensed self-hosted
+ * webfont, it is picked up automatically; otherwise the next entry renders with no
+ * failed request and no layout shift.
+ *
+ * To self-host properly: obtain the woff2 files under their own licences (Inter, IBM
+ * Plex Mono and Cormorant Garamond are all SIL OFL 1.1), place them in public/fonts/
+ * with their licence files, and re-add @font-face blocks here using `font-display: swap`.
+ * See frontend/README.md, "Typography".
+ */
