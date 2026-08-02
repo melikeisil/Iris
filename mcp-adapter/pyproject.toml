@@ -1,0 +1,26 @@
+[project]
+name = "smartwork-mcp-adapter"
+version = "0.1.0"
+description = "SmartWork AI MCP adapter. Stateless Streamable HTTP bridge to the Spring Boot API."
+requires-python = ">=3.12"
+dependencies = [
+    "mcp>=1.29,<2",
+    "pydantic-settings>=2.4,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3,<9",
+    "pytest-asyncio>=0.24,<0.25",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*"]

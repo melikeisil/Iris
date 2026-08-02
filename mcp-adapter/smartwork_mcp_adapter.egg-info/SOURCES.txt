@@ -1,0 +1,16 @@
+README.md
+pyproject.toml
+app/__init__.py
+app/auth.py
+app/client.py
+app/config.py
+app/errors.py
+app/server.py
+smartwork_mcp_adapter.egg-info/PKG-INFO
+smartwork_mcp_adapter.egg-info/SOURCES.txt
+smartwork_mcp_adapter.egg-info/dependency_links.txt
+smartwork_mcp_adapter.egg-info/requires.txt
+smartwork_mcp_adapter.egg-info/top_level.txt
+tests/test_client.py
+tests/test_config.py
+tests/test_server.py

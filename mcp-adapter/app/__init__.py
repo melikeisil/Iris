@@ -1,0 +1,1 @@
+"""SmartWork AI MCP adapter."""

@@ -1,0 +1,6 @@
+mcp<2,>=1.29
+pydantic-settings<3,>=2.4
+
+[dev]
+pytest<9,>=8.3
+pytest-asyncio<0.25,>=0.24
