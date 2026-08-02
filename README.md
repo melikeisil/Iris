@@ -1,8 +1,8 @@
-# SmartWork AI
+# Iris — SmartWork AI Platform
 
 AI-powered enterprise work orchestration platform that works together with Jira Cloud.
 
-SmartWork AI ingests work from two directions — **ticket-originated operational work** and **planned project / software development work** — analyzes it with an LLM, decomposes it into actionable items, ranks candidate assignees deterministically, routes the decision through a policy engine, and synchronizes approved outcomes with Jira.
+SmartWork AI ingests work from two directions — **ticket-originated operational work** and **planned project / software development work** — analyzes it with an LLM (Gemini 1.5/2.0 Flash / Anthropic), decomposes it into actionable items, ranks candidate assignees deterministically, routes the decision through a policy engine, and synchronizes approved outcomes with Jira.
 
 > **Status: Phase 10 in progress.**
 > Phase 1 delivered the design ([docs/](docs/)); Phase 2 the backend foundation; Phase 3
@@ -113,13 +113,13 @@ With the stack already running:
 make demo
 ```
 
-This runs [scripts/demo_smoke.sh](/Users/meltem/Desktop/Iris/scripts/demo_smoke.sh) and exercises three seeded demo paths through the real APIs:
+This runs [scripts/demo_smoke.sh](scripts/demo_smoke.sh) and exercises three seeded demo paths through the real APIs:
 
 - employee onboarding with incomplete input
 - development work with richer scope
 - production-sensitive payments incident
 
-The presenter runbook lives in [docs/15-demo-runbook.md](/Users/meltem/Desktop/Iris/docs/15-demo-runbook.md).
+The presenter runbook lives in [docs/15-demo-runbook.md](docs/15-demo-runbook.md).
 
 ## License
 
