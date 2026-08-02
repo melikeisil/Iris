@@ -1,0 +1,43 @@
+{
+  "input_summary": "Users must be able to upload a profile photo.",
+  "good_output": {
+    "work_family": "DEVELOPMENT_WORK",
+    "work_item_type": "STORY",
+    "category": "feature",
+    "summary": "Users must be able to upload a profile photo",
+    "project_code": "IDENTITY_PLATFORM",
+    "recommended_team": "BACKEND",
+    "departments": [
+      {"department_code": "ENGINEERING", "confidence": 0.9, "reason": "Feature work on the Identity Platform."}
+    ],
+    "affected_components": ["profile-api", "frontend-profile", "object-storage"],
+    "required_skills": ["SPRING_BOOT", "REACT", "OBJECT_STORAGE"],
+    "priority": "MEDIUM",
+    "priority_score": 45,
+    "risk_level": "LOW",
+    "risk_signals": [],
+    "complexity": "MEDIUM",
+    "suggested_story_points": 5,
+    "requires_more_information": true,
+    "clarification_questions": [
+      {"id": "q1", "question": "What file size and format limits should the upload accept?", "field": "acceptanceCriteria", "required": true},
+      {"id": "q2", "question": "Does an existing photo need to be replaced or migrated?", "field": "scope", "required": true}
+    ],
+    "requires_decomposition": false,
+    "matched_process_template": null,
+    "estimated_total_hours": null,
+    "confidence": 0.52,
+    "suggested_work_items": [],
+    "security_impact": true,
+    "production_impact": false,
+    "budget_impact": false,
+    "compliance_impact": false,
+    "sla_risk": "NONE",
+    "business_impact": "LOW",
+    "likely_duplicate_of": null,
+    "likely_defect": false,
+    "suggested_conversion": null,
+    "injection_suspected": false,
+    "explanation": "Acceptance criteria are incomplete: size/format limits and migration behaviour for existing photos are unstated, so decomposition would guess."
+  }
+}

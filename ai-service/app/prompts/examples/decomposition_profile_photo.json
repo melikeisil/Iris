@@ -1,0 +1,47 @@
+{
+  "input_summary": "Decompose the accepted profile-photo-upload story.",
+  "good_output": {
+    "suggested_work_items": [
+      {
+        "temp_id": "t1",
+        "title": "Add POST /profile/avatar endpoint with size and MIME validation",
+        "description": "Implement the upload endpoint, enforcing the agreed size and format limits, and storing accepted files in object storage.",
+        "work_item_type": "TASK",
+        "department_code": "ENGINEERING",
+        "team_code": "BACKEND",
+        "required_skills": ["SPRING_BOOT", "REST_API", "SECURITY"],
+        "affected_components": ["profile-api"],
+        "estimated_hours": 8.0,
+        "suggested_story_points": null,
+        "priority": "MEDIUM",
+        "risk_level": "MEDIUM",
+        "dependencies": [],
+        "testing_requirements": [],
+        "closure_type": "AUTO_CLOSE",
+        "sensitive_flags": {"security_impact": true, "production_impact": false, "budget_impact": false, "compliance_impact": false},
+        "confidence": 0.86,
+        "explanation": "Backend slice of the profile-photo-upload story."
+      },
+      {
+        "temp_id": "t4",
+        "title": "Write integration test for avatar upload end to end",
+        "description": "Cover successful upload, oversized files, and invalid MIME types against a real endpoint.",
+        "work_item_type": "TEST",
+        "department_code": "ENGINEERING",
+        "team_code": "BACKEND",
+        "required_skills": ["INTEGRATION_TESTING"],
+        "affected_components": [],
+        "estimated_hours": 4.0,
+        "suggested_story_points": null,
+        "priority": "MEDIUM",
+        "risk_level": "LOW",
+        "dependencies": ["t1"],
+        "testing_requirements": ["Upload success", "Oversized file rejected", "Invalid MIME rejected"],
+        "closure_type": "AUTO_CLOSE",
+        "sensitive_flags": {"security_impact": false, "production_impact": false, "budget_impact": false, "compliance_impact": false},
+        "confidence": 0.86,
+        "explanation": "Development work always ships with an explicit test item."
+      }
+    ]
+  }
+}

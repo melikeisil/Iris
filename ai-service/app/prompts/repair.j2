@@ -1,0 +1,17 @@
+Your previous response did not satisfy the required schema. Exactly one retry is
+permitted, so read the errors carefully and correct all of them at once.
+
+## Your previous output
+
+```json
+{{ raw_output }}
+```
+
+## Validation errors
+
+{% for error in errors %}
+- {{ error }}
+{% endfor %}
+
+Return a single corrected JSON object satisfying the original schema and instructions.
+Do not include any explanation, markdown fencing, or text outside the JSON object itself.

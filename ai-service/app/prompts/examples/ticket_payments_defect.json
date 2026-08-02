@@ -1,0 +1,40 @@
+{
+  "input_summary": "Payments fail intermittently during checkout.",
+  "good_output": {
+    "work_family": "SERVICE_WORK",
+    "work_item_type": "REQUEST",
+    "category": "defect_report",
+    "summary": "Payments fail intermittently during checkout",
+    "project_code": "PAYMENTS",
+    "recommended_team": "BACKEND",
+    "departments": [
+      {"department_code": "ENGINEERING", "confidence": 0.9, "reason": "Intermittent payment failures indicate a code-level defect."}
+    ],
+    "affected_components": ["payment-gateway"],
+    "required_skills": ["PAYMENTS", "JAVA"],
+    "priority": "CRITICAL",
+    "priority_score": 92,
+    "risk_level": "HIGH",
+    "risk_signals": ["production checkout path affected", "revenue impact"],
+    "complexity": "MEDIUM",
+    "suggested_story_points": null,
+    "requires_more_information": false,
+    "clarification_questions": [],
+    "requires_decomposition": false,
+    "matched_process_template": null,
+    "estimated_total_hours": null,
+    "confidence": 0.83,
+    "suggested_work_items": [],
+    "security_impact": false,
+    "production_impact": true,
+    "budget_impact": false,
+    "compliance_impact": false,
+    "sla_risk": "HIGH",
+    "business_impact": "CRITICAL",
+    "likely_duplicate_of": null,
+    "likely_defect": true,
+    "suggested_conversion": "BUG",
+    "injection_suspected": false,
+    "explanation": "Intermittent failure on the production checkout path is a code defect, not a request for new work; recommend converting to a BUG against Payments."
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "onboarding": {
+    "input": "Prepare all onboarding activities for a new employee starting Monday.",
+    "expected_work_family": "PROCESS_WORK",
+    "expected_priority": "HIGH",
+    "expected_template": "EMPLOYEE_ONBOARDING"
+  },
+  "profile_photo": {
+    "input": "Users must be able to upload a profile photo.",
+    "expected_work_family": "DEVELOPMENT_WORK",
+    "expected_work_item_type": "STORY",
+    "expected_project_code": "IDENTITY_PLATFORM"
+  },
+  "payments_defect": {
+    "input": "Payments fail intermittently during checkout.",
+    "expected_likely_defect": true,
+    "expected_suggested_conversion": "BUG",
+    "expected_production_impact": true
+  }
+}

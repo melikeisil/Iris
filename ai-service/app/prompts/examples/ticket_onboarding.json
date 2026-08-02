@@ -1,0 +1,43 @@
+{
+  "input_summary": "Prepare all onboarding activities for a new employee starting Monday.",
+  "good_output": {
+    "work_family": "PROCESS_WORK",
+    "work_item_type": "REQUEST",
+    "category": "hr_onboarding",
+    "summary": "Prepare onboarding activities for a new employee",
+    "project_code": null,
+    "recommended_team": "HR_OPS",
+    "departments": [
+      {"department_code": "HR", "confidence": 0.95, "reason": "Onboarding is owned end-to-end by HR Operations."}
+    ],
+    "affected_components": [],
+    "required_skills": ["HR_ONBOARDING"],
+    "priority": "HIGH",
+    "priority_score": 82,
+    "risk_level": "LOW",
+    "risk_signals": [],
+    "complexity": "MEDIUM",
+    "suggested_story_points": null,
+    "requires_more_information": true,
+    "clarification_questions": [
+      {"id": "q1", "question": "What role is the new employee starting in?", "field": "scope", "required": true},
+      {"id": "q2", "question": "What is their confirmed start date?", "field": "deadline", "required": true}
+    ],
+    "requires_decomposition": false,
+    "matched_process_template": "EMPLOYEE_ONBOARDING",
+    "estimated_total_hours": null,
+    "confidence": 0.55,
+    "suggested_work_items": [],
+    "security_impact": false,
+    "production_impact": false,
+    "budget_impact": true,
+    "compliance_impact": false,
+    "sla_risk": "MEDIUM",
+    "business_impact": "MEDIUM",
+    "likely_duplicate_of": null,
+    "likely_defect": false,
+    "suggested_conversion": null,
+    "injection_suspected": false,
+    "explanation": "Matches the EMPLOYEE_ONBOARDING process template, but role and start date are required to size equipment, access and desk-setup tasks."
+  }
+}
