@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: false
+
+server:
+  error:
+    include-message: never
+    include-stacktrace: never
+    include-binding-errors: never
+
+logging:
+  level:
+    root: WARN
+    com.smartwork: INFO

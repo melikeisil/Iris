@@ -1,0 +1,11 @@
+# Demo profile: activates the seeded organization, departments, teams, skills and users.
+# Never enable this in an environment holding real data.
+spring:
+  flyway:
+    locations: classpath:db/migration,classpath:db/demo
+
+smartwork:
+  demo:
+    enabled: true
+    # Every seeded account uses this password. Demo only.
+    default-password: ${DEMO_PASSWORD:SmartWork!Demo2026}

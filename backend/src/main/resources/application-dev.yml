@@ -1,0 +1,18 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+
+smartwork:
+  security:
+    jwt:
+      # Dev-only fixed secret so tokens survive a restart. Refused by StartupSecretValidator
+      # in any profile other than dev/test.
+      secret: dev-only-secret-not-for-any-real-deployment-please-override-me-0123456789
+
+logging:
+  level:
+    com.smartwork: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE

@@ -1,0 +1,27 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+    clean-disabled: false
+
+smartwork:
+  security:
+    jwt:
+      secret: test-only-secret-with-enough-entropy-for-hs512-abcdefghijklmnopqrstuvwxyz012345
+      issuer: smartwork-ai
+      access-token-ttl: PT15M
+      refresh-token-ttl: P7D
+      clock-skew: PT30S
+    cors:
+      allowed-origins: http://localhost:5173
+  demo:
+    enabled: false
+    default-password: Test!Password2026
+
+logging:
+  level:
+    root: WARN
+    com.smartwork: INFO
+    org.testcontainers: WARN
