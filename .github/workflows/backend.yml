@@ -1,0 +1,58 @@
+name: backend
+
+on:
+  push:
+    branches: [main]
+    paths: ["backend/**", ".github/workflows/backend.yml"]
+  pull_request:
+    paths: ["backend/**", ".github/workflows/backend.yml"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+          cache: maven
+
+      - name: Compile and run unit tests
+        working-directory: backend
+        run: mvn -B test
+
+      # Testcontainers starts a real PostgreSQL 16. H2 would not reproduce the partial
+      # unique indexes, CHECK constraints or trigger functions the schema depends on.
+      - name: Integration tests
+        working-directory: backend
+        run: mvn -B verify -DskipUnitTests=false
+
+      - name: Publish test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: backend/target/*-reports/
+          retention-days: 7
+
+  security:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+          cache: maven
+
+      - name: OWASP dependency check
+        working-directory: backend
+        continue-on-error: true    # advisory until Phase 9 pins a baseline
+        run: mvn -B org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=7

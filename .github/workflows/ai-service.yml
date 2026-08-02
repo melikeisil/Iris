@@ -1,0 +1,41 @@
+name: ai-service
+
+on:
+  push:
+    branches: [main]
+    paths: ["ai-service/**", ".github/workflows/ai-service.yml"]
+  pull_request:
+    paths: ["ai-service/**", ".github/workflows/ai-service.yml"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: ai-service/pyproject.toml
+
+      - name: Install
+        working-directory: ai-service
+        run: pip install -e ".[dev]"
+
+      - name: Lint
+        working-directory: ai-service
+        run: ruff check app tests
+
+      - name: Type check
+        working-directory: ai-service
+        run: mypy app
+
+      # No ANTHROPIC_API_KEY in CI: LLM_PROVIDER defaults to auto, which falls back to
+      # the deterministic MockProvider, so the full suite runs hermetically.
+      - name: Test
+        working-directory: ai-service
+        run: pytest -v

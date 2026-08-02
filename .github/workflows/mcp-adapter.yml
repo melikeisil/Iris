@@ -1,0 +1,31 @@
+name: mcp-adapter
+
+on:
+  push:
+    branches: [main]
+    paths: ["mcp-adapter/**", ".github/workflows/mcp-adapter.yml"]
+  pull_request:
+    paths: ["mcp-adapter/**", ".github/workflows/mcp-adapter.yml"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: mcp-adapter/pyproject.toml
+
+      - name: Install
+        working-directory: mcp-adapter
+        run: pip install -e ".[dev]"
+
+      - name: Test
+        working-directory: mcp-adapter
+        run: pytest -v

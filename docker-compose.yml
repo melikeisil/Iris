@@ -1,0 +1,154 @@
+# SmartWork AI - Phase 9 topology: postgres, backend, ai-service, frontend,
+# plus an optional MCP adapter profile.
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: smartwork-postgres
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:-smartwork}
+      POSTGRES_USER: ${DATABASE_USER:-smartwork}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-smartwork}
+    ports:
+      - "${DATABASE_PORT:-5432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER:-smartwork} -d ${DATABASE_NAME:-smartwork}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - smartwork
+
+  # Local/demo SMTP catcher for the weekly report email flow. Nothing leaves the
+  # machine; the web UI at MAILHOG_UI_PORT is how "verify email delivery" is done
+  # without a real mail provider.
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    container_name: smartwork-mailhog
+    ports:
+      - "${MAILHOG_SMTP_PORT:-1025}:1025"
+      - "${MAILHOG_UI_PORT:-8025}:8025"
+    networks:
+      - smartwork
+
+  backend:
+    build:
+      context: ./backend
+    container_name: smartwork-backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mailhog:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev,demo}
+      DATABASE_URL: jdbc:postgresql://postgres:5432/${DATABASE_NAME:-smartwork}
+      DATABASE_USER: ${DATABASE_USER:-smartwork}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-smartwork}
+      JWT_SECRET: ${JWT_SECRET:-}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:5173}
+      DEMO_PASSWORD: ${DEMO_PASSWORD:-SmartWork!Demo2026}
+      JIRA_BASE_URL: ${JIRA_BASE_URL:-}
+      JIRA_EMAIL: ${JIRA_EMAIL:-}
+      JIRA_API_TOKEN: ${JIRA_API_TOKEN:-}
+      JIRA_PROJECT_KEY: ${JIRA_PROJECT_KEY:-}
+      JIRA_ISSUE_TYPE: ${JIRA_ISSUE_TYPE:-Task}
+      SMTP_HOST: mailhog
+      SMTP_PORT: 1025
+      SMTP_AUTH: "false"
+      SMTP_STARTTLS: "false"
+      REPORT_MAIL_FROM: ${REPORT_MAIL_FROM:-no-reply@smartwork.local}
+    ports:
+      - "${BACKEND_PORT:-8080}:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/actuator/health/readiness || exit 1"]
+      interval: 15s
+      timeout: 3s
+      start_period: 45s
+      retries: 5
+    networks:
+      - smartwork
+
+  ai-service:
+    build:
+      context: ./ai-service
+    container_name: smartwork-ai-service
+    environment:
+      LLM_PROVIDER: ${LLM_PROVIDER:-auto}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-2.5-flash}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-sonnet-5}
+      DEMO_MODE: ${DEMO_MODE:-true}
+      SERVICE_TOKEN: ${AI_SERVICE_TOKEN:-dev-only-service-token-change-me}
+      LOG_LEVEL: ${AI_LOG_LEVEL:-INFO}
+    ports:
+      - "${AI_SERVICE_PORT:-8000}:8000"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/health')\" || exit 1"]
+      interval: 15s
+      timeout: 5s
+      start_period: 10s
+      retries: 5
+    networks:
+      - smartwork
+    # No DATABASE_URL and no JIRA_* variable is ever passed to this container -
+    # see docs/07-ai-service-contract.md §2, "Hard boundaries".
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # Relative base URL: nginx proxies /api to the backend service on the compose
+        # network, so the browser only ever sees one origin and no CORS preflight is
+        # needed in this topology.
+        VITE_API_BASE_URL: /api/v1
+        VITE_DEMO_MODE: ${VITE_DEMO_MODE:-true}
+        VITE_ORG_NAME: ${VITE_ORG_NAME:-NovaTech}
+    container_name: smartwork-frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "${FRONTEND_PORT:-5173}:80"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/healthz || exit 1"]
+      interval: 15s
+      timeout: 3s
+      start_period: 5s
+      retries: 5
+    networks:
+      - smartwork
+
+  mcp-adapter:
+    build:
+      context: ./mcp-adapter
+    container_name: smartwork-mcp-adapter
+    profiles: ["mcp"]
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      SMARTWORK_API_BASE_URL: ${SMARTWORK_API_BASE_URL:-http://backend:8080/api/v1}
+      MCP_HTTP_PORT: ${MCP_HTTP_PORT:-9000}
+      REQUEST_TIMEOUT_SECONDS: ${MCP_REQUEST_TIMEOUT_SECONDS:-10}
+      LOG_LEVEL: ${MCP_LOG_LEVEL:-INFO}
+    ports:
+      - "${MCP_HTTP_PORT:-9000}:9000"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:9000/health')\" || exit 1"]
+      interval: 15s
+      timeout: 5s
+      start_period: 10s
+      retries: 5
+    networks:
+      - smartwork
+
+volumes:
+  postgres-data:
+
+networks:
+  smartwork:
+    driver: bridge
