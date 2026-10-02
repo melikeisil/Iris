@@ -1,6 +1,6 @@
 # 15 — Demo Runbook
 
-This is the presenter-facing Phase 10 script for a clean local demo on **Sunday, August 2, 2026**.
+This is the presenter-facing Phase 10 script for a clean local demo.
 
 ## 1. Bring the stack up
 
@@ -10,7 +10,7 @@ docker compose up --build -d
 make demo
 ```
 
-`make demo` runs the API smoke harness in [scripts/demo_smoke.sh](/Users/meltem/Desktop/Iris/scripts/demo_smoke.sh). It verifies:
+`make demo` runs the API smoke harness in [scripts/demo_smoke.sh](../scripts/demo_smoke.sh). It verifies:
 
 - backend health
 - AI readiness and active provider
@@ -84,7 +84,7 @@ Right now the repository supports two honest demo modes:
 
 ### Mode 1 — No real Jira connection configured
 
-This is the current `.env` state in the workspace.
+This is the default state when the Jira variables in `.env` are left empty.
 
 Use this line in the presentation:
 
